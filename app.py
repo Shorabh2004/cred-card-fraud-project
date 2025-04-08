@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 # Load trained model
-model = joblib.load('fraud_detection_model.pkl')  # Load your saved model
+model = joblib.load('fraud_model_u2.pkl')  # Load your saved model
 
 st.title("Credit Card Fraud Detection System 💳")
 
