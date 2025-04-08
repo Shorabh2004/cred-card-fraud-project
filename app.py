@@ -1,31 +1,34 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import numpy as np
 
-# Load the trained fraud detection model
-model = joblib.load("fraud_model_u.pkl")
+# Load trained model
+model = joblib.load('fraud_detection_model.pkl')  # Load your saved model
 
-# Streamlit UI
-st.title("Credit Card Fraud Detection")
-st.write("Enter transaction details below to check if it's fraud or not.")
+st.title("Credit Card Fraud Detection System 💳")
 
-# User input fields
-time = st.number_input("Time (seconds since first transaction)", min_value=0.0)
-amount = st.number_input("Transaction Amount ($)", min_value=0.0)
+st.write("Enter transaction details below to check if it's Fraud or Genuine")
 
-# Placeholder for additional features
-features = [time, amount] + [0] * 28  # Adding placeholder values for other features
+# Input Features (Example based on your dataset features)
+# Replace with your actual features
+V1 = st.number_input("V1")
+V2 = st.number_input("V2")
+V3 = st.number_input("V3")
+V4 = st.number_input("V4")
+V5 = st.number_input("V5")
+Amount = st.number_input("Amount")
 
-if st.button("Check Fraud"):
-    # Convert input to NumPy array and reshape
-    input_data = np.array(features).reshape(1, -1)
-    
-    # Predict using the model
+if st.button("Predict"):
+    # Make dataframe from user input
+    input_data = pd.DataFrame([[V1, V2, V3, V4, V5, Amount]],
+                               columns=['V1', 'V2', 'V3', 'V4', 'V5', 'Amount'])
+
     prediction = model.predict(input_data)
-    
-    # Display result
+
     if prediction[0] == 1:
-        st.error("🚨 Fraudulent Transaction Detected!")
+        st.error("⚠️ Fraudulent Transaction Detected!")
     else:
-        st.success("✅ Transaction is Legitimate.")
+        st.success("✅ Genuine Transaction")
+
+st.markdown("---")
+st.caption("Made with ❤️ using Streamlit")
