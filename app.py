@@ -7,22 +7,19 @@ model = joblib.load('fraud_model_u2.pkl')  # Load your saved model
 
 st.title("Credit Card Fraud Detection System 💳")
 
-st.write("Enter transaction details below to check if it's Fraud or Genuine")
-feature_names = ['V1', 'V2', 'V3', 'V4', 'V5', 'Amount']
+# Use the same feature names used during training
+feature_names = model.feature_names_in_
 
-# Input Features (Example based on your dataset features)
-# Replace with your actual features
-V1 = st.number_input("V1")
-V2 = st.number_input("V2")
-V3 = st.number_input("V3")
-V4 = st.number_input("V4")
-V5 = st.number_input("V5")
-Amount = st.number_input("Amount")
+# Take user input dynamically
+user_input = []
 
-if st.button("Predict"):
-    # Make dataframe from user input
-    input_data = pd.DataFrame([[V1, V2, V3, V4, V5, Amount]],
-                               columns=['V1', 'V2', 'V3', 'V4', 'V5', 'Amount'])
+for feature in feature_names:
+    value = st.number_input(f'Enter {feature}')
+    user_input.append(value)
+
+if st.button('Predict'):
+    # Convert to DataFrame with correct feature names
+    input_data = pd.DataFrame([user_input], columns=feature_names)
 
     prediction = model.predict(input_data)
 
@@ -30,6 +27,3 @@ if st.button("Predict"):
         st.error("⚠️ Fraudulent Transaction Detected!")
     else:
         st.success("✅ Genuine Transaction")
-
-st.markdown("---")
-st.caption("Made with ❤️ using Streamlit")
