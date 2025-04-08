@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 
 # Load the trained fraud detection model
-model = joblib.load("fraud_model.pkl")
+model = joblib.load("fraud_model_u.pkl")
 
 # Streamlit UI
 st.title("Credit Card Fraud Detection")
