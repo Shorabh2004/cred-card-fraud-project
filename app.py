@@ -8,6 +8,7 @@ model = joblib.load('fraud_model_u2.pkl')  # Load your saved model
 st.title("Credit Card Fraud Detection System 💳")
 
 st.write("Enter transaction details below to check if it's Fraud or Genuine")
+feature_names = ['V1', 'V2', 'V3', 'V4', 'V5', 'Amount']
 
 # Input Features (Example based on your dataset features)
 # Replace with your actual features
